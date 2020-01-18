@@ -1,0 +1,2 @@
+# smaya
+kumpulan script smaya

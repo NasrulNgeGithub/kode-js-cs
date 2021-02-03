@@ -1,4 +1,4 @@
-# Url encoder for SVG
+Kode Untuk Alumni
 
-http://yoksel.github.io/url-encoder
+http://schoolyapip-smaya.sch.id/alumni
 

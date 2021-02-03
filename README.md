@@ -1,4 +1,4 @@
-Kode Untuk Alumni
+Kode Untuk Direktori Alumni
 
-http://schoolyapip-smaya.sch.id/alumni
+http://www.schoolyapip-smaya.sch.id/direktori-alumni
 

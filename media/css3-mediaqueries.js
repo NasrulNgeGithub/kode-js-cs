@@ -1,15 +1,15 @@
 /*
 css3-mediaqueries.js
 
-author: Wouter van der Graaf <woutervandergraaf at gmail com> and Heath Beckett <https://github.com/heathcliff>
+author: https://github.com/NasrulNgeGithub
 license: MIT
-website: https://github.com/heathcliff/css3-mediaqueries-js
+website: https://github.com/NasrulNgeGithub/media/css3-mediaqueries-js
 
 W3C spec: http://www.w3.org/TR/css3-mediaqueries/
 
 */
 
-// true prototypal inheritance (http://javascript.crockford.com/prototypal.html)
+// true prototypal inheritance ()
 if (typeof Object.create !== 'function') {
     Object.create = function (o) {
         function F() {}

@@ -25,14 +25,14 @@ total ada 91.219 data.
 
 Contoh Penggunaan
 -------------
-Untuk contoh cara pakai menggunakan select2 cek berkas [contoh.html](https://github.com/ibnux/data-indonesia/blob/master/contoh.html)
+Untuk contoh cara pakai menggunakan select2 cek berkas [contoh.html](https://github.com/NasrulNgeGithub/kode-js-cs/blob/master/daerah/contoh.html)
 
 
 Demo
 -------------
-Untuk demo implementasi bisa dilihat disini: [Demo](https://ibnux.github.io/data-indonesia/contoh.html)
+Untuk demo implementasi bisa dilihat disini: [Demo](https://nasrulngegithub.github.io/kode-js-cs/daerah/contoh.html)
 
-### Support iBNuX
+### Support NasrulNgeGithub
 
-[<img src="https://ibnux.github.io/KaryaKarsa-button/karyaKarsaButton.png" width="128">](https://karyakarsa.com/ibnux)
-[<img src="https://ibnux.github.io/Trakteer-button/trakteer_button.png" width="120">](https://trakteer.id/ibnux)
+[<img src="https://" width="128">](https://)
+[<img src="https://" width="120">](https://)

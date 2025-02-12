@@ -17,5 +17,5 @@ function nsrols(index) {
     }
 
     function tutupPopup() {
-      document.querySelectorAll('.tunjukkan').forEach(div => div.style.display = 'none');
+      document.querySelectorAll('.tampilan').forEach(div => div.style.display = 'none');
     }

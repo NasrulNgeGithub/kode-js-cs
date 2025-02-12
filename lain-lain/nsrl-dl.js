@@ -10,7 +10,7 @@ function nsrols(index) {
       if (lybrnos.includes(Number(lybernos)) && jalur[lybernos].includes(index)) {
         // Tampilkan popup yang sesuai
         document.querySelectorAll('.tunjukkan').forEach(div => div.style.display = 'none');
-        document.getElementById(`tunjukkan${index+1}`).style.display = 'block';
+        document.getElementById(`tampilan${index+1}`).style.display = 'block';
       } else {
         alert('Nomor anggota tidak valid atau Anda tidak memiliki akses.');
       }

@@ -12,3 +12,10 @@ function nsrol(index) {
     }
   }
 }
+
+// 2 jalur
+const jalur = {
+      111: [0], // Anggota 111 hanya bisa akses link 1
+      222: [1], // Anggota 222 hanya bisa akses link 2
+      333: [2], // Anggota 333 hanya bisa akses link 3
+    };

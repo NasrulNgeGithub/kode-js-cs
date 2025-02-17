@@ -13,6 +13,54 @@ function nsrol(index) {
   }
 }
 
+//NonAktifkanTombol
+const nmrAnggtInpt = document.getElementById('nmranggt');
+const errorMessage = document.getElementById('error-message');
+const toMailLink = document.getElementById('to_mail');
+const toWaLink = document.getElementById('to_wa');
+
+// Simpan href asli kedua tombol
+const originalHrefMail = toMailLink.href;
+const originalHrefWa = toWaLink.href;
+
+nmrAnggtInpt.addEventListener('input', function() {
+  const inputValue = parseInt(this.value);
+
+  if (lybrno.includes(inputValue)) {
+    errorMessage.style.display = 'none';
+    toMailLink.classList.remove('disabled');
+    toWaLink.classList.remove('disabled');
+    toMailLink.href = originalHrefMail; // Kembalikan href
+    toWaLink.href = originalHrefWa; // Kembalikan href
+  } else {
+    errorMessage.style.display = 'block';
+    errorMessage.textContent = 'Nomor anggota yang Anda masukkan tidak terdaftar. Apakah Anda ingin mendaftar anggota atau tetap di halaman ini?';
+
+    errorMessage.innerHTML = '';
+    const daftarButton = document.createElement('button');
+    daftarButton.textContent = 'Daftar';
+    daftarButton.addEventListener('click', function() {
+      window.location.href = '/p/daftar-anggota-perpustakaan.html';
+    });
+    errorMessage.appendChild(daftarButton);
+
+    const tetapButton = document.createElement('button');
+    tetapButton.textContent = 'Tutup';
+    tetapButton.addEventListener('click', function() {
+      errorMessage.style.display = 'none';
+    });
+    errorMessage.appendChild(tetapButton);
+
+    toMailLink.classList.add('disabled');
+    toWaLink.classList.add('disabled');
+
+    // Mencegah aksi default link dengan javascript:void(0);
+    toMailLink.href = 'javascript:void(0);'; 
+    toWaLink.href = 'javascript:void(0);';
+  }
+});
+
+
 // 2 jalur
 const jalur = {
       196500150002: [0],

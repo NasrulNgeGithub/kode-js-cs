@@ -1,0 +1,79 @@
+#kalender {
+  max-width: 300px;
+  width: 95%;
+  border: 1px solid red;
+  font-family: sans-serif;
+  margin: 10px auto;
+}
+
+#header-kalender {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: red;
+  color: white;
+}
+
+.tombol-merah {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#tabel-kalender {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tabel-kalender th,
+#tabel-kalender td {
+  border: 1px solid red;
+  padding: 5px;
+  text-align: center;
+}
+
+#daftar-kegiatan,
+#daftar-agenda {
+  padding: 10px;
+}
+
+.postingan {
+  background-color: darkblue;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 1px;
+}
+
+.hari-ini {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+  
+.hari-libur {
+  background-color: lightyellow;
+  color: red;
+  font-weight: bold;
+}
+
+.ada-kegiatan {
+  background-color: midnightblue;
+  color: white;
+  font-weight: bold;
+}
+
+.ada-agenda {
+  background-color: darkgreen;
+  color: white;
+  font-weight: bold;
+}
+
+/* Media query untuk layar yang lebih kecil */
+@media (max-width: 480px) {
+  #kalender {
+    width: 95%;
+  }
+}

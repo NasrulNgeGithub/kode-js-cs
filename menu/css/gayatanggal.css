@@ -54,7 +54,7 @@
 }
   
 .hari-libur {
-  background-color: lightyellow;
+  background-color: yellow;
   color: red;
   font-weight: bold;
 }
@@ -69,6 +69,19 @@
   background-color: darkgreen;
   color: white;
   font-weight: bold;
+}
+  
+#tabel-kalender td {
+  border: 1px solid red;
+  padding: 5px;
+  text-align: center;
+  cursor: default; /* Kursor default untuk sel lainnya */
+}
+
+.ada-kegiatan,
+.ada-agenda,
+.hari-libur {
+  cursor: pointer !important;
 }
 
 /* Media query untuk layar yang lebih kecil */

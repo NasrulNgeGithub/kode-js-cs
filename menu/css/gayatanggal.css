@@ -90,3 +90,49 @@
     width: 95%;
   }
 }
+  
+#legenda-kalender {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin: 10px; /* Menambahkan margin di sekitar legenda */
+  padding: 10px; /* Menambahkan padding di dalam legenda */
+  border: 1px solid #ddd; /* Menambahkan border untuk visualisasi (opsional) */
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+}
+
+.legenda-warna {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.hari-ini.legenda-warna {
+  background-color: red;
+}
+
+.hari-libur.legenda-warna {
+  background-color: yellow;
+}
+
+.ada-kegiatan.legenda-warna {
+  background-color: midnightblue;
+}
+
+.ada-agenda.legenda-warna {
+  background-color: darkgreen;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 480px) {
+  #legenda-kalender {
+    grid-template-columns: 1fr;
+    margin: 5px; /* Margin lebih kecil pada layar kecil */
+    padding: 5px; /* Padding lebih kecil pada layar kecil */
+  }
+}

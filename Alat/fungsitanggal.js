@@ -41,12 +41,13 @@
       const tanggalSel = `${tahun}-${(bulan + 1)
         .toString()
         .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
-      
+
       if (hariLibur[tanggalSel]) {
         sel.classList.add("hari-libur");
+        sel.addEventListener("click", () => tampilkanHariLibur(tanggalSel)); // Tambahkan event listener untuk hari libur
       }
 
-     if (kegiatanTanggal.includes(tanggalSel)) {
+      if (kegiatanTanggal.includes(tanggalSel)) {
         sel.classList.add("ada-kegiatan");
       }
       if (agendaTanggal.includes(tanggalSel)) {
@@ -142,6 +143,14 @@
       .catch((error) => {
         console.error("Error fetching feed:", error);
       });
+  }
+
+  function tampilkanHariLibur(tanggal) {
+    const keterangan = hariLibur[tanggal];
+    if (keterangan) {
+      const daftar = document.getElementById("daftar-kegiatan"); // Atau daftar-agenda, sesuaikan kebutuhan
+      daftar.innerHTML = `<div class="postingan">${keterangan}</div>`;
+    }
   }
 
   prevBulan.addEventListener("click", () => {

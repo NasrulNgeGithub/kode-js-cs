@@ -41,20 +41,42 @@
       const tanggalSel = `${tahun}-${(bulan + 1)
         .toString()
         .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
-
+      
       if (hariLibur[tanggalSel]) {
         sel.classList.add("hari-libur");
-        sel.addEventListener("click", () => tampilkanHariLibur(tanggalSel)); // Tambahkan event listener untuk hari libur
+        sel.addEventListener("click", (event) => {
+          event.stopPropagation(); // Mencegah event bubbling
+          tampilkanHariLibur(tanggalSel);
+        });
       }
 
-      if (kegiatanTanggal.includes(tanggalSel)) {
+     if (kegiatanTanggal.includes(tanggalSel)) {
         sel.classList.add("ada-kegiatan");
       }
       if (agendaTanggal.includes(tanggalSel)) {
         sel.classList.add("ada-agenda");
       }
-      sel.addEventListener("click", () => tampilkanKegiatan(tahun, bulan, i, "Kegiatan"));
-      sel.addEventListener("click", () => tampilkanKegiatan(tahun, bulan, i, "Agenda"));
+      
+sel.addEventListener("click", (event) => {
+  if (!hariLibur[tanggalSel]) {
+    event.stopPropagation();
+    setTimeout(() => {
+      console.log("Kegiatan diklik:", tanggalSel);
+      tampilkanKegiatan(tahun, bulan, i, "Kegiatan");
+    }, 10); // Tunda 10 milidetik
+  }
+});
+
+sel.addEventListener("click", (event) => {
+  if (!hariLibur[tanggalSel]) {
+    event.stopPropagation();
+    setTimeout(() => {
+      console.log("Agenda diklik:", tanggalSel);
+      tampilkanKegiatan(tahun, bulan, i, "Agenda");
+    }, 10); // Tunda 10 milidetik
+  }
+});
+      
       baris.appendChild(sel);
       hari++;
       if (hari % 7 === 0) {

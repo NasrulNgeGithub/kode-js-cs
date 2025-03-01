@@ -37,8 +37,8 @@
         i === tanggalHariIni.getDate()
       ) {
         sel.classList.add("hari-ini");
-        // Tambahkan logika untuk menampilkan keterangan otomatis
-        tampilkanKeteranganOtomatis(tanggalSel);
+        // Nonaktifkan pemanggilan tampilkanKeteranganOtomatis()
+        // tampilkanKeteranganOtomatis(tanggalSel);
       }
       const tanggalSel = `${tahun}-${(bulan + 1)
         .toString()

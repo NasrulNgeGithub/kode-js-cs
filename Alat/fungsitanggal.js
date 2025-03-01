@@ -37,6 +37,8 @@
         i === tanggalHariIni.getDate()
       ) {
         sel.classList.add("hari-ini");
+        // Tambahkan logika untuk menampilkan keterangan otomatis
+        tampilkanKeteranganOtomatis(tanggalSel);
       }
       const tanggalSel = `${tahun}-${(bulan + 1)
         .toString()
@@ -172,6 +174,36 @@ sel.addEventListener("click", (event) => {
     if (keterangan) {
       const daftar = document.getElementById("daftar-kegiatan"); // Atau daftar-agenda, sesuaikan kebutuhan
       daftar.innerHTML = `<div class="postingan">${keterangan}</div>`;
+    }
+  }
+
+  function tampilkanKeteranganOtomatis(tanggal) {
+    const daftar = document.getElementById("daftar-kegiatan");
+    daftar.innerHTML = ""; // Bersihkan daftar sebelum menampilkan keterangan
+
+    // Tampilkan keterangan hari libur jika ada
+    if (hariLibur[tanggal]) {
+      daftar.innerHTML += `<div class="postingan">${hariLibur[tanggal]}</div>`;
+    }
+
+    // Tampilkan keterangan kegiatan jika ada
+    if (kegiatanTanggal.includes(tanggal)) {
+      tampilkanKegiatan(
+        parseInt(tanggal.substring(0, 4)),
+        parseInt(tanggal.substring(5, 7)) - 1,
+        parseInt(tanggal.substring(8, 10)),
+        "Kegiatan"
+      );
+    }
+
+    // Tampilkan keterangan agenda jika ada
+    if (agendaTanggal.includes(tanggal)) {
+      tampilkanKegiatan(
+        parseInt(tanggal.substring(0, 4)),
+        parseInt(tanggal.substring(5, 7)) - 1,
+        parseInt(tanggal.substring(8, 10)),
+        "Agenda"
+      );
     }
   }
 

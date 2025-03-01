@@ -206,7 +206,7 @@ sel.addEventListener("click", (event) => {
       );
     }
   }
-
+  
   prevBulan.addEventListener("click", () => {
     bulan--;
     if (bulan < 0) {

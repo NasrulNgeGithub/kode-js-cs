@@ -31,54 +31,52 @@
       const sel = document.createElement("td");
       sel.textContent = i;
       const tanggalHariIni = new Date();
-      const tanggalSel = `${tahun}-${(bulan + 1)
-        .toString()
-        .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
-
       if (
         tahun === tanggalHariIni.getFullYear() &&
         bulan === tanggalHariIni.getMonth() &&
         i === tanggalHariIni.getDate()
       ) {
         sel.classList.add("hari-ini");
-        tampilkanKeteranganOtomatis(tanggalSel); // Tampilkan keterangan otomatis
       }
-
-      if (hariLibur[tanggalSel] && !sel.classList.contains("hari-ini")) {
+      const tanggalSel = `${tahun}-${(bulan + 1)
+        .toString()
+        .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
+      
+      if (hariLibur[tanggalSel]) {
         sel.classList.add("hari-libur");
         sel.addEventListener("click", (event) => {
-          event.stopPropagation();
+          event.stopPropagation(); // Mencegah event bubbling
           tampilkanHariLibur(tanggalSel);
         });
       }
 
-      if (kegiatanTanggal.includes(tanggalSel)) {
+     if (kegiatanTanggal.includes(tanggalSel)) {
         sel.classList.add("ada-kegiatan");
       }
       if (agendaTanggal.includes(tanggalSel)) {
         sel.classList.add("ada-agenda");
       }
+      
+sel.addEventListener("click", (event) => {
+  if (!hariLibur[tanggalSel]) {
+    event.stopPropagation();
+    setTimeout(() => {
+      console.log("Kegiatan diklik:", tanggalSel);
+      tampilkanKegiatan(tahun, bulan, i, "Kegiatan");
+    }, 10); // Tunda 10 milidetik
+  }
+});
 
-      sel.addEventListener("click", (event) => {
-        if (!hariLibur[tanggalSel]) {
-          event.stopPropagation();
-          setTimeout(() => {
-            console.log("Kegiatan diklik:", tanggalSel);
-            tampilkanKegiatan(tahun, bulan, i, "Kegiatan");
-          }, 10);
-        }
-      });
-
-      sel.addEventListener("click", (event) => {
-        if (!hariLibur[tanggalSel]) {
-          event.stopPropagation();
-          setTimeout(() => {
-            console.log("Agenda diklik:", tanggalSel);
-            tampilkanKegiatan(tahun, bulan, i, "Agenda");
-          }, 10);
-        }
-      });
-
+sel.addEventListener("click", (event) => {
+  if (!hariLibur[tanggalSel]) {
+    event.stopPropagation();
+    setTimeout(() => {
+      console.log("Agenda diklik:", tanggalSel);
+      tampilkanKegiatan(tahun, bulan, i, "Agenda");
+    }, 10); // Tunda 10 milidetik
+  }
+});
+      
       baris.appendChild(sel);
       hari++;
       if (hari % 7 === 0) {
@@ -177,33 +175,6 @@
     }
   }
 
-  function tampilkanKeteranganOtomatis(tanggal) {
-    const daftar = document.getElementById("daftar-kegiatan");
-    daftar.innerHTML = "";
-
-    if (hariLibur[tanggal]) {
-      daftar.innerHTML += `<div class="postingan">${hariLibur[tanggal]}</div>`;
-    }
-
-    if (kegiatanTanggal.includes(tanggal)) {
-      tampilkanKegiatan(
-        parseInt(tanggal.substring(0, 4)),
-        parseInt(tanggal.substring(5, 7)) - 1,
-        parseInt(tanggal.substring(8, 10)),
-        "Kegiatan"
-      );
-    }
-
-    if (agendaTanggal.includes(tanggal)) {
-      tampilkanKegiatan(
-        parseInt(tanggal.substring(0, 4)),
-        parseInt(tanggal.substring(5, 7)) - 1,
-        parseInt(tanggal.substring(8, 10)),
-        "Agenda"
-      );
-    }
-  }
-  
   prevBulan.addEventListener("click", () => {
     bulan--;
     if (bulan < 0) {

@@ -31,29 +31,20 @@
       const sel = document.createElement("td");
       sel.textContent = i;
       const tanggalHariIni = new Date();
+      const tanggalSel = `${tahun}-${(bulan + 1)
+        .toString()
+        .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
+
       if (
         tahun === tanggalHariIni.getFullYear() &&
         bulan === tanggalHariIni.getMonth() &&
         i === tanggalHariIni.getDate()
       ) {
         sel.classList.add("hari-ini");
-        // Tambahkan logika untuk menampilkan keterangan otomatis
-        tampilkanKeteranganOtomatis(
-          `${tahun}-${(bulan + 1).toString().padStart(2, "0")}-${i
-            .toString()
-            .padStart(2, "0")}`
-        );
-        // Tambahkan kelas hari-ini-libur jika hari ini juga hari libur
-        if (hariLibur[tanggalSel]) {
-          sel.classList.add("hari-ini-libur");
-        }
+        tampilkanKeteranganOtomatis(tanggalSel); // Tampilkan keterangan otomatis
       }
-      const tanggalSel = `${tahun}-${(bulan + 1)
-        .toString()
-        .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
 
       if (hariLibur[tanggalSel] && !sel.classList.contains("hari-ini")) {
-        // Tambahkan kondisi agar tidak menimpa hari-ini
         sel.classList.add("hari-libur");
         sel.addEventListener("click", (event) => {
           event.stopPropagation();

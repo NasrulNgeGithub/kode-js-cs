@@ -1,6 +1,10 @@
 //Jadwal Shalat
+
     const pilihKota = document.getElementById("pilih-kota");
     let kodeKota = pilihKota.value;
+    const adzanSound = document.getElementById("adzan");
+    const adzanSubuhSound = document.getElementById("adzan-subuh");
+    const imsakAlertSound = document.getElementById("imsak-alert");
 
     function tampilkanJadwal(kode, tanggalDipilih) {
         let tanggal;
@@ -12,7 +16,7 @@
         const tahun = tanggal.getFullYear();
         const bulan = String(tanggal.getMonth() + 1).padStart(2, '0');
         const hari = String(tanggal.getDate()).padStart(2, '0');
-        const url = `https://api.myquran.com/v2/sholat/jadwal/${kode}/${tahun}/${bulan}/${hari}`;
+        const url = `https://api.myquran.com/v2/sholat/jadwal/<span class="math-inline">\{kode\}/</span>{tahun}/<span class="math-inline">\{bulan\}/</span>{hari}`;
 
         fetch(url)
             .then((response) => response.json())
@@ -29,23 +33,15 @@
 
                     // Update judul jadwal
                     const namaKota = pilihKota.options[pilihKota.selectedIndex].text;
-                    const tanggalFormat = tanggal.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'     });
+                    const tanggalFormat = tanggal.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
                     document.getElementById("judul-jadwal").textContent = `Jadwal Shalat ${tanggalFormat} - ${namaKota}`;
                 } else {
-                console.error("Gagal mengambil data jadwal shalat:", data.status);
+                    console.error("Gagal mengambil data jadwal shalat:", data.status);
                 }
             })
             .catch((error) => {
                 console.error("Error fetching jadwal shalat:", error);
             });
-    }
-
-    function tampilkanWaktu() {
-        const waktu = new Date();
-        const jam = String(waktu.getHours()).padStart(2, '0');
-        const menit = String(waktu.getMinutes()).padStart(2, '0');
-        const detik = String(waktu.getSeconds()).padStart(2, '0');
-        document.getElementById("waktu-digital").textContent = `${jam}:${menit}:${detik}`;
     }
 
     function tampilkanWaktu() {
@@ -77,22 +73,17 @@
         }
     }
 
-  pilihKota.addEventListener("change", function () {
-    kodeKota = this.value;
-    const tanggalDipilih = document.getElementById("pilih-tanggal").value;
-    tampilkanJadwal(kodeKota, tanggalDipilih);
-});
+    pilihKota.addEventListener("change", function () {
+        kodeKota = this.value;
+        const tanggalDipilih = document.getElementById("pilih-tanggal").value;
+        tampilkanJadwal(kodeKota, tanggalDipilih);
+    });
 
-document.getElementById("pilih-tanggal").addEventListener("change", function () {
-    const tanggalDipilih = this.value;
-    tampilkanJadwal(kodeKota, tanggalDipilih);
-});
-  
+    document.getElementById("pilih-tanggal").addEventListener("change", function () {
+        const tanggalDipilih = this.value;
+        tampilkanJadwal(kodeKota, tanggalDipilih);
+    });
+
     tampilkanJadwal(kodeKota);
     tampilkanWaktu();
     setInterval(tampilkanWaktu, 1000);
-
-    pilihKota.addEventListener("change", function () {
-        kodeKota = this.value;
-        tampilkanJadwal(kodeKota);
-    });

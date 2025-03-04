@@ -1,4 +1,3 @@
-/* Awal Jadwal Perhari */
 #kalender {
   max-width: 300px;
   width: 95%;
@@ -137,73 +136,6 @@
     padding: 5px; /* Padding lebih kecil pada layar kecil */
   }
 }
-
-
-
-
-/* Awal Jadwal Perbulan */
-  #jadwal-shprbulan {
-    width: 100%;
-    font-family: sans-serif;
-    overflow-x: auto; /* Tambahkan ini agar tabel dapat di-scroll secara horizontal */
-  }
-
-  .form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .form-row {
-    display: flex;
-    align-items: center;
-  }
-
-  #jadwal-shprbulan label {
-    width: 80px;
-    text-align: left;
-  }
-
-  #jadwal-shprbulan select,
-  #jadwal-shprbulan input {
-    grid-column: 2;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  #tabel-jdprbulan {
-    width: 100%;
-    border-collapse: collapse;
-    overflow-x: auto; /* Tambahkan ini agar tabel dapat di-scroll secara horizontal */
-    display: block; /* Tambahkan ini untuk memastikan overflow-x berfungsi */
-  }
-
-  #tabel-jdprbulan th,
-  #tabel-jdprbulan td {
-    border: 1px solid red;
-    padding: 8px;
-    text-align: center;
-    white-space: nowrap; /* Mencegah teks untuk wrap */
-  }
-
-  #tabel-jdprbulan th {
-    background-color: pink !important;
-    color: red !important;
-    font-weight: bold;
-  }
-
-  /* Tambahkan aturan CSS untuk menandai baris hari ini */
-  #tabel-jdprbulan tr.tdy {
-    background-color: pink !important;
-    color: red !important;
-    font-weight: bold;
-  }
-
-  @media (max-width: 600px) {
-    .form-container {
-      grid-template-columns: 1fr;
-    }
 
     #jadwal-shprbulan select,
     #jadwal-shprbulan input {

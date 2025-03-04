@@ -106,4 +106,10 @@ document.getElementById("pilih-tanggal").addEventListener("change", function () 
     tampilkanJadwal(kodeKota, tanggalDipilih);
 });
 
+// Panggil tampilkanJadwal saat halaman dimuat
+document.addEventListener("DOMContentLoaded", function () {
+    tampilkanJadwal(kodeKota);
+});
 
+// Set interval untuk menampilkan waktu digital dan cek waktu shalat
+setInterval(tampilkanWaktu, 1000);

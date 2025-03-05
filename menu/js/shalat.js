@@ -112,7 +112,7 @@ function cekWaktuShalat() {
     document.querySelector(".subuh-ikon").classList.add("aktif"); // Tambahkan ikon aktif
   }
   if (
-    waktuDigital === "12:17" &&
+    waktuDigital === document.getElementById("dzuhur").textContent.substring(0, 5) &&
     !dzuhurPlayed
   ) {
     adzanSound.play();

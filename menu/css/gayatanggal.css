@@ -1,7 +1,7 @@
 #kalender {
   max-width: 480px;
   width: 100%;
-  border: 1px solid red;
+  border: 1px solid #ff0000; /* Warna merah yang spesifik */
   font-family: sans-serif;
   margin: 10px auto;
 }
@@ -10,12 +10,12 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: red;
+  background-color: #ff0000; /* Warna merah yang spesifik */
   color: white;
 }
 
 .tombol-merah {
-  background-color: red;
+  background-color: #ff0000; /* Warna merah yang spesifik */
   color: white;
   border: none;
   padding: 5px 10px;
@@ -29,7 +29,7 @@
 
 #tabel-kalender th,
 #tabel-kalender td {
-  border: 1px solid red;
+  border: 1px solid #ff0000; /* Warna merah yang spesifik */
   padding: 5px;
   text-align: center;
 }
@@ -48,11 +48,11 @@
 }
 
 .hari-ini {
-  background-color: red;
+  background-color: #ff0000; /* Warna merah yang spesifik */
   color: white;
   font-weight: bold;
 }
-  
+
 .hari-libur {
   background-color: yellow;
   color: red;
@@ -70,18 +70,11 @@
   color: white;
   font-weight: bold;
 }
-  
-#tabel-kalender td {
-  border: 1px solid red;
-  padding: 5px;
-  text-align: center;
-  cursor: default; /* Kursor default untuk sel lainnya */
-}
 
-.ada-kegiatan,
-.ada-agenda,
-.hari-libur {
-  cursor: pointer !important;
+#tabel-kalender td.ada-kegiatan,
+#tabel-kalender td.ada-agenda,
+#tabel-kalender td.hari-libur {
+  cursor: pointer;
 }
 
 /* Media query untuk layar yang lebih kecil */
@@ -90,14 +83,14 @@
     width: 100%;
   }
 }
-  
+
 #legenda-kalender {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
-  margin: 10px; /* Menambahkan margin di sekitar legenda */
-  padding: 10px; /* Menambahkan padding di dalam legenda */
-  border: 1px solid #ddd; /* Menambahkan border untuk visualisasi (opsional) */
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
 }
 
 .legenda-item {
@@ -113,7 +106,7 @@
 }
 
 .hari-ini.legenda-warna {
-  background-color: red;
+  background-color: #ff0000; /* Warna merah yang spesifik */
 }
 
 .hari-libur.legenda-warna {
@@ -132,13 +125,12 @@
 @media (max-width: 480px) {
   #legenda-kalender {
     grid-template-columns: 1fr;
-    margin: 5px; /* Margin lebih kecil pada layar kecil */
-    padding: 5px; /* Padding lebih kecil pada layar kecil */
+    margin: 5px;
+    padding: 5px;
   }
 }
 
-    #jadwal-shprbulan select,
-    #jadwal-shprbulan input {
-      grid-column: 1;
-    }
-  }
+#jadwal-shprbulan select,
+#jadwal-shprbulan input {
+  grid-column: 1;
+}

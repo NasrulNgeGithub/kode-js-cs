@@ -87,7 +87,7 @@
 /* Media query untuk layar yang lebih kecil */
 @media (max-width: 480px) {
   #kalender {
-    width: 95%;
+    width: 100%;
   }
 }
   

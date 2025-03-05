@@ -36,8 +36,18 @@
 
 #daftar-kegiatan,
 #daftar-agenda {
-  color: white;
   padding: 10px;
+}
+
+#daftar-kegiatan a,
+#daftar-agenda a {
+  color: white; /* Warna default putih */
+  text-decoration: none; /* Menghilangkan garis bawah default */
+}
+
+#daftar-kegiatan a:active,
+#daftar-agenda a:active {
+  color: yellow; /* Warna kuning saat diklik */
 }
 
 .postingan {

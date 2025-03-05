@@ -112,7 +112,7 @@ function cekWaktuShalat() {
     document.querySelector(".subuh-ikon").classList.add("aktif"); // Tambahkan ikon aktif
   }
   if (
-    waktuDigital === "21:50" &&
+    waktuDigital === document.getElementById("dzuhur").textContent.substring(0, 5) &&
     !dzuhurPlayed
   ) {
     adzanSound.play();
@@ -165,9 +165,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Set interval untuk menampilkan waktu digital dan cek waktu shalat
 setInterval(tampilkanWaktu, 1000);
-
-document.getElementById("tombol-uji-dzuhur").addEventListener("click", function () {
-    console.log("Tombol Dzuhur diklik");
-    console.log(document.querySelector(".dzuhur-ikon"));
-    document.querySelector(".dzuhur-ikon").classList.add("aktif");
-});

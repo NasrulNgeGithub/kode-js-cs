@@ -167,5 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 setInterval(tampilkanWaktu, 1000);
 
 document.getElementById("tombol-uji-dzuhur").addEventListener("click", function () {
-        document.querySelector(".dzuhur-ikon").classList.add("aktif");
-    });
+    console.log("Tombol Dzuhur diklik");
+    console.log(document.querySelector(".dzuhur-ikon"));
+    document.querySelector(".dzuhur-ikon").classList.add("aktif");
+});

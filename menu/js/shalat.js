@@ -5,6 +5,7 @@ const adzanSound = document.getElementById("adzan");
 const adzanSubuhSound = document.getElementById("adzan-subuh");
 const imsakAlertSound = document.getElementById("imsak-alert");
 
+// Status audio (dipindahkan ke luar fungsi cekWaktuShalat)
 let imsakPlayed = false;
 let subuhPlayed = false;
 let dzuhurPlayed = false;
@@ -85,14 +86,6 @@ function cekWaktuShalat() {
   const imsakAlertSound = document.getElementById("imsak-alert");
   const adzanSubuhSound = document.getElementById("adzan-subuh");
   const adzanSound = document.getElementById("adzan");
-
-  // Status audio
-  let imsakPlayed = false;
-  let subuhPlayed = false;
-  let dzuhurPlayed = false;
-  let asharPlayed = false;
-  let maghribPlayed = false;
-  let isyaPlayed = false;
 
   // Cek waktu shalat
   if (

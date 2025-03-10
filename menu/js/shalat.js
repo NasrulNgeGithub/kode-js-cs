@@ -10,6 +10,7 @@
             .then(data => {
                 if (data.status) {
                     const jadwal = data.data.jadwal;
+                    document.getElementById("lokasi").textContent = data.data.lokasi;
 
                     // Menampilkan jadwal shalat
                     document.getElementById("imsak").textContent = jadwal.imsak;

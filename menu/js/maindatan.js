@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (year === '2024') {
             nilaiSekolah = (avg * 0.50) + (nus * 0.50); // 50% Rata-rata, 50% NUS
         } else if (year === '2025') {
-            nilaiSekolah = (avg * 0.60) + (nus * 0.40); // 60% Rata-rata, 40% NUS (default)
+            nilaiSekolah = (avg * 0.70) + (nus * 0.30); // 70% Rata-rata, 30% NUS (default)
         } else {
             // Default untuk tahun lain jika ada
-            nilaiSekolah = (avg * 0.60) + (nus * 0.40);
+            nilaiSekolah = (avg * 0.70) + (nus * 0.30);
         }
         return nilaiSekolah.toFixed(2);
     }
@@ -107,10 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (year === '2024') {
             nilaiSekolah = (avg * 0.50) + (nus * 0.50); // 50% Rata-rata, 50% NUS
         } else if (year === '2025') {
-            nilaiSekolah = (avg * 0.60) + (nus * 0.40); // 60% Rata-rata, 40% NUS (default)
+            nilaiSekolah = (avg * 0.70) + (nus * 0.30); // 70% Rata-rata, 30% NUS (default)
         } else {
             // Default untuk tahun lain jika ada
-            nilaiSekolah = (avg * 0.60) + (nus * 0.40);
+            nilaiSekolah = (avg * 0.70) + (nus * 0.30);
         }
         return nilaiSekolah.toFixed(2);
     }
@@ -228,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
             nusPercentage = '50%';
             semesterRangeText = 'semester 1 sampai semester 6'; // NEW
         } else if (year === '2025') {
-            kogPercentage = '60%';
-            nusPercentage = '40%';
+            kogPercentage = '70%';
+            nusPercentage = '30%';
             semesterRangeText = 'semester 1 sampai semester 5'; // NEW
         } else {
-            kogPercentage = '60%'; // Default
-            nusPercentage = '40%'; // Default
+            kogPercentage = '70%'; // Default
+            nusPercentage = '30%'; // Default
             semesterRangeText = 'semester 1 sampai semester 5'; // Default
         }
 
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <hr>
                 <div class="summary-item"><span><b>Rata-rata Kog ${semesterRangeText} (Semua Mapel)</b></span><span>:</span><span><b>${avgKogOverall.replace('.', ',')}</b></span></div>
                 <div class="summary-item"><span><b>Rata-rata Nilai Ujian Sekolah (Semua Mapel)</b></span><span>:</span><span><b>${nusOverall.replace('.', ',')}</b></span></div>
-                <div class="summary-item"><span><b>Nilai Sekolah (Overall)</b></span><span>:</span><span><b>${nilaiSekolahOverall.replace('.', ',')}</b></span></div>
+                <div class="summary-item"><span><b>Rata-rata Nilai Sekolah / IPK (Semua Mapel)</b></span><span>:</span><span><b>${nilaiSekolahOverall.replace('.', ',')}</b></span></div>
             </div>
             <div class="calculation-info">
                 <h4>Keterangan Perolehan Nilai Sekolah (${subjectName}) Tahun ${year}:</h4>
@@ -280,8 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </ul>
                 <p>Rumus: (Rata-rata Nilai Kog ${semesterRangeText} ${subjectName} &times; ${parseFloat(kogPercentage)/100}) + (Nilai Ujian Sekolah ${subjectName} &times; ${parseFloat(nusPercentage)/100})</p>
                 <br>
-                <h4>Informasi Nilai Sekolah (Overall) Tahun ${year}:</h4>
-                <p>Nilai Sekolah (Overall) dihitung berdasarkan akumulasi:</p>
+                <h4>Informasi Rata-rata Nilai Sekolah / IPK (Semua Mapel) Tahun ${year}:</h4>
+                <p>Rata-rata Nilai Sekolah / IPK (Semua Mapel) dihitung berdasarkan akumulasi:</p>
                 <ul>
                     <li>**${kogPercentage}** dari rata-rata nilai "Kog" ${semesterRangeText} dari **semua mata pelajaran**.</li>
                     <li>**${nusPercentage}** dari rata-rata Nilai Ujian Sekolah dari **semua mata pelajaran**.</li>

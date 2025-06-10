@@ -1,5 +1,10 @@
-// data2024
-const studentsData2024 = [
+// Pastikan objek global sudah ada, jika belum, inisialisasi sebagai objek kosong
+if (typeof window.allStudentsDataGlobal === 'undefined') {
+    window.allStudentsDataGlobal = {};
+}
+
+// Tambahkan data tahun 2024 ke objek global
+window.allStudentsDataGlobal['2024'] = [
     {
         id: 'budi_2024',
         name: 'Budi Santoso',

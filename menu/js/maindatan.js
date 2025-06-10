@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <hr>
                 <div class="summary-item"><span><b>Rata-rata Kog Smt 1-5 (Semua Mapel)</b></span><span>:</span><span><b>${avgKogOverall.replace('.', ',')}</b></span></div>
                 <div class="summary-item"><span><b>Rata-rata Nilai Ujian Sekolah (Semua Mapel)</b></span><span>:</span><span><b>${nusOverall.replace('.', ',')}</b></span></div>
-                <div class="summary-item"><span><b>Nilai Sekolah (Overall)</b></span><span>:</span><span><b>${nilaiSekolahOverall.replace('.', ',')}</b></span></div>
+                <div class="summary-item"><span><b>Rata-rata Nilai Sekolah / IPK (Semua Mapel)</b></span><span>:</span><span><b>${nilaiSekolahOverall.replace('.', ',')}</b></span></div>
             </div>
             <div class="calculation-info">
                 <h4>Keterangan Perolehan Nilai Sekolah (${subjectName}) Tahun ${year}:</h4>
@@ -278,8 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </ul>
                 <p>Rumus: (Rata-rata Nilai Kog Smt 1-5 ${subjectName} &times; ${parseFloat(kogPercentage)/100}) + (Nilai Ujian Sekolah ${subjectName} &times; ${parseFloat(nusPercentage)/100})</p>
                 <br>
-                <h4>Informasi Nilai Sekolah (Overall) Tahun ${year}:</h4>
-                <p>Nilai Sekolah (Overall) dihitung berdasarkan akumulasi:</p>
+                <h4>Informasi Rata-rata Nilai Sekolah / IPK (Semua Mapel) Tahun ${year}:</h4>
+                <p>Rata-rata Nilai Sekolah / IPK (Semua Mapel) dihitung berdasarkan akumulasi:</p>
                 <ul>
                     <li>**${kogPercentage}** dari rata-rata nilai "Kog" semester 1 sampai semester 5 dari **semua mata pelajaran**.</li>
                     <li>**${nusPercentage}** dari rata-rata Nilai Ujian Sekolah dari **semua mata pelajaran**.</li>

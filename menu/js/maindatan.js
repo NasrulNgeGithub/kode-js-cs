@@ -7,23 +7,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const subjectSelect = document.getElementById('subject-select');
     const studentDetailsDiv = document.getElementById('student-details');
 
+    // --- OBJEK KONFIGURASI TAHUNAN (BARU) ---
+    // Tempatkan ini di bagian atas file Anda, di luar listener DOMContentLoaded
+    const yearConfigurations = {
+        '2024': {
+            maxSemester: 6, // Rata-rata hingga semester 6
+            kogWeight: 0.50, // 50% Rata-rata Kog
+            nusWeight: 0.50  // 50% Nilai Ujian Sekolah
+        },
+        '2025': {
+            maxSemester: 5, // Rata-rata hingga semester 5
+            kogWeight: 0.60, // 60% Rata-rata Kog
+            nusWeight: 0.40  // 40% Nilai Ujian Sekolah
+        },
+        // Tambahkan konfigurasi untuk tahun 2026 dan seterusnya di sini
+        // Contoh untuk tahun 2026:
+        // '2026': {
+        //     maxSemester: 4, // Misalnya, rata-rata hanya sampai semester 4
+        //     kogWeight: 0.70, // Misalnya, 70% rata-rata Kog
+        //     nusWeight: 0.30  // Misalnya, 30% Nilai Ujian Sekolah
+        // },
+    };
+
+    // Konfigurasi default jika tahun tidak ditemukan dalam yearConfigurations
+    const defaultConfiguration = {
+        maxSemester: 5,
+        kogWeight: 0.60,
+        nusWeight: 0.40
+    };
+
     // Gabungkan data dari file terpisah (pastikan data2024.js dan data2025.js sudah dimuat)
     const allStudentsData = {
         '2024': typeof studentsData2024 !== 'undefined' ? studentsData2024 : [],
         '2025': typeof studentsData2025 !== 'undefined' ? studentsData2025 : [],
-        // Tambahkan tahun lain di sini jika Anda membuat file data baru
+        // Tambahkan tahun lain di sini jika Anda membuat file data baru,
+        // pastikan juga membuat file data JS terpisah untuk tahun tersebut
         // '2026': typeof studentsData2026 !== 'undefined' ? studentsData2026 : [],
     };
 
     let currentSelectedStudent = null;
 
-    // --- FUNGSI PERHITUNGAN ---
+    // --- FUNGSI PERHITUNGAN (MODIFIED untuk menggunakan konfigurasi) ---
 
-    // 1. Rata-rata Kog berdasarkan MATA PELAJARAN TERPILIH (MODIFIED to include year)
-    function calculateKogAvgBySubject(studentGrades, subjectName, year) { // ADDED 'year' parameter
+    // 1. Rata-rata Kog berdasarkan MATA PELAJARAN TERPILIH
+    function calculateKogAvgBySubject(studentGrades, subjectName, year) {
+        // Mengambil konfigurasi untuk tahun yang dipilih, atau default jika tidak ada
+        const config = yearConfigurations[year] || defaultConfiguration;
         let totalKog = 0;
         let count = 0;
-        let maxSemester = (year === '2024') ? 6 : 5; // <--- LOGIKA BARU DI SINI
+        let maxSemester = config.maxSemester; // Mengambil dari konfigurasi
 
         for (let i = 1; i <= maxSemester; i++) {
             const semesterKey = `s${i}`;
@@ -35,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return count > 0 ? (totalKog / count).toFixed(2) : 'N/A';
     }
 
-    // 2. Nilai Ujian Sekolah per Mata Pelajaran (langsung ambil dari data)
+    // 2. Nilai Ujian Sekolah per Mata Pelajaran (tetap sama)
     function getNusBySubject(nusGrades, subjectName) {
         if (nusGrades && typeof nusGrades === 'object' && nusGrades[subjectName] !== undefined) {
             return parseFloat(nusGrades[subjectName]).toFixed(2);
@@ -43,31 +75,28 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'N/A';
     }
 
-    // 3. Nilai Sekolah per Mata Pelajaran (Modified to include year)
+    // 3. Nilai Sekolah per Mata Pelajaran
     function calculateNilaiSekolahBySubject(avgKogBySubject, nusBySubject, year) {
         if (avgKogBySubject === 'N/A' || nusBySubject === 'N/A') {
             return 'N/A';
         }
+        // Mengambil konfigurasi untuk tahun yang dipilih, atau default jika tidak ada
+        const config = yearConfigurations[year] || defaultConfiguration;
         const avg = parseFloat(avgKogBySubject);
         const nus = parseFloat(nusBySubject);
-        let nilaiSekolah;
 
-        if (year === '2024') {
-            nilaiSekolah = (avg * 0.50) + (nus * 0.50); // 50% Rata-rata, 50% NUS
-        } else if (year === '2025') {
-            nilaiSekolah = (avg * 0.70) + (nus * 0.30); // 70% Rata-rata, 30% NUS (default)
-        } else {
-            // Default untuk tahun lain jika ada
-            nilaiSekolah = (avg * 0.70) + (nus * 0.30);
-        }
+        // Menggunakan bobot dari konfigurasi
+        const nilaiSekolah = (avg * config.kogWeight) + (nus * config.nusWeight);
         return nilaiSekolah.toFixed(2);
     }
 
-    // 4. Rata-rata Kog OVERALL (dari SEMUA mata pelajaran) (MODIFIED to include year)
-    function calculateKogAvgOverall(studentGrades, year) { // ADDED 'year' parameter
+    // 4. Rata-rata Kog OVERALL (dari SEMUA mata pelajaran)
+    function calculateKogAvgOverall(studentGrades, year) {
+        // Mengambil konfigurasi untuk tahun yang dipilih, atau default jika tidak ada
+        const config = yearConfigurations[year] || defaultConfiguration;
         let totalKog = 0;
         let count = 0;
-        let maxSemester = (year === '2024') ? 6 : 5; // <--- LOGIKA BARU DI SINI
+        let maxSemester = config.maxSemester; // Mengambil dari konfigurasi
 
         for (let i = 1; i <= maxSemester; i++) {
             const semesterGrades = studentGrades[`s${i}`];
@@ -81,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return count > 0 ? (totalKog / count).toFixed(2) : 'N/A';
     }
 
-    // 5. Rata-rata Nilai Ujian Sekolah OVERALL (sama seperti sebelumnya)
+    // 5. Rata-rata Nilai Ujian Sekolah OVERALL (tetap sama)
     function calculateNusOverall(nusGrades) {
         if (typeof nusGrades !== 'object' || Object.keys(nusGrades).length === 0) {
             return 'N/A';
@@ -95,27 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return count > 0 ? (totalNus / count).toFixed(2) : 'N/A';
     }
 
-    // 6. Perhitungan Nilai Sekolah OVERALL (Modified to include year)
+    // 6. Perhitungan Nilai Sekolah OVERALL
     function calculateNilaiSekolahOverall(avgKogOverall, nusOverall, year) {
         if (avgKogOverall === 'N/A' || nusOverall === 'N/A') {
             return 'N/A';
         }
+        // Mengambil konfigurasi untuk tahun yang dipilih, atau default jika tidak ada
+        const config = yearConfigurations[year] || defaultConfiguration;
         const avg = parseFloat(avgKogOverall);
         const nus = parseFloat(nusOverall);
-        let nilaiSekolah;
 
-        if (year === '2024') {
-            nilaiSekolah = (avg * 0.50) + (nus * 0.50); // 50% Rata-rata, 50% NUS
-        } else if (year === '2025') {
-            nilaiSekolah = (avg * 0.70) + (nus * 0.30); // 70% Rata-rata, 30% NUS (default)
-        } else {
-            // Default untuk tahun lain jika ada
-            nilaiSekolah = (avg * 0.70) + (nus * 0.30);
-        }
+        // Menggunakan bobot dari konfigurasi
+        const nilaiSekolah = (avg * config.kogWeight) + (nus * config.nusWeight);
         return nilaiSekolah.toFixed(2);
     }
 
-    // --- EVENT LISTENERS (Modifikasi pemanggilan fungsi avg) ---
+    // --- EVENT LISTENERS (Tidak ada perubahan signifikan, kecuali pemanggilan fungsi) ---
 
     yearSelect.addEventListener('change', (event) => {
         const selectedYear = event.target.value;
@@ -155,10 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSelectedStudent.year = selectedYear;
 
                 let subjects = [];
-                for(let i=1; i<=6; i++) { // Tetap loop sampai semester 6 untuk mencari semua mapel
+                // Loop hingga semester 6 untuk mencari semua mapel yang mungkin ada
+                for(let i=1; i<=6; i++) {
                     if (student.grades[`s${i}`]) {
                         subjects = Object.keys(student.grades[`s${i}`]);
-                        if (subjects.length > 0) break; // Ambil mata pelajaran dari semester pertama yang ada
+                        // Ambil mata pelajaran dari semester pertama yang memiliki data
+                        if (subjects.length > 0) break;
                     }
                 }
                 
@@ -182,19 +208,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- FUNGSI TAMPILAN DETAIL (MODIFIED calling avg functions and description) ---
+    // --- FUNGSI TAMPILAN DETAIL (MODIFIED untuk menggunakan konfigurasi) ---
 
     function displayStudentSubjectGrades(student, subjectName, year) {
         const grades = student.grades;
 
+        // Mengambil konfigurasi untuk tahun yang dipilih
+        const config = yearConfigurations[year] || defaultConfiguration;
+
         // Perhitungan untuk mata pelajaran yang dipilih
-        // MODIFIED: Pass 'year' to average calculation functions
+        // Meneruskan 'year' ke fungsi perhitungan rata-rata Kog
         const avgKogBySubject = calculateKogAvgBySubject(grades, subjectName, year);
         const nusBySubject = getNusBySubject(grades.nus, subjectName);
         const nilaiSekolahBySubject = calculateNilaiSekolahBySubject(avgKogBySubject, nusBySubject, year);
 
         // Perhitungan OVERALL (dari semua mata pelajaran)
-        // MODIFIED: Pass 'year' to average calculation functions
+        // Meneruskan 'year' ke fungsi perhitungan rata-rata Kog overall
         const avgKogOverall = calculateKogAvgOverall(grades, year);
         const nusOverall = calculateNusOverall(grades.nus);
         const nilaiSekolahOverall = calculateNilaiSekolahOverall(avgKogOverall, nusOverall, year);
@@ -218,23 +247,21 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        // Tentukan bobot persentase untuk ditampilkan di keterangan
-        let kogPercentage;
-        let nusPercentage;
-        let semesterRangeText; // NEW variable for semester range
+        // Tentukan bobot persentase dan rentang semester untuk ditampilkan di keterangan
+        const kogPercentage = `${(config.kogWeight * 100)}%`;
+        const nusPercentage = `${(config.nusWeight * 100)}%`;
+        let semesterRangeText;
 
-        if (year === '2024') {
-            kogPercentage = '50%';
-            nusPercentage = '50%';
-            semesterRangeText = 'semester 1 sampai semester 6'; // NEW
-        } else if (year === '2025') {
-            kogPercentage = '70%';
-            nusPercentage = '30%';
-            semesterRangeText = 'semester 1 sampai semester 5'; // NEW
+        // Menentukan teks rentang semester berdasarkan maxSemester dari konfigurasi
+        if (config.maxSemester === 6) {
+            semesterRangeText = 'semester 1 sampai semester 6';
+        } else if (config.maxSemester === 5) {
+            semesterRangeText = 'semester 1 sampai semester 5';
+        } else if (config.maxSemester === 4) {
+            semesterRangeText = 'semester 1 sampai semester 4';
         } else {
-            kogPercentage = '70%'; // Default
-            nusPercentage = '30%'; // Default
-            semesterRangeText = 'semester 1 sampai semester 5'; // Default
+            // Default atau untuk tahun lain yang tidak didefinisikan secara spesifik
+            semesterRangeText = `semester 1 sampai semester ${config.maxSemester}`;
         }
 
 
@@ -269,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <hr>
                 <div class="summary-item"><span><b>Rata-rata Kog ${semesterRangeText} (Semua Mapel)</b></span><span>:</span><span><b>${avgKogOverall.replace('.', ',')}</b></span></div>
                 <div class="summary-item"><span><b>Rata-rata Nilai Ujian Sekolah (Semua Mapel)</b></span><span>:</span><span><b>${nusOverall.replace('.', ',')}</b></span></div>
-                <div class="summary-item"><span><b>Rata-rata Nilai Sekolah / IPK (Semua Mapel)</b></span><span>:</span><span><b>${nilaiSekolahOverall.replace('.', ',')}</b></span></div>
+                <div class="summary-item"><span><b>Nilai Sekolah (Overall)</b></span><span>:</span><span><b>${nilaiSekolahOverall.replace('.', ',')}</b></span></div>
             </div>
             <div class="calculation-info">
                 <h4>Keterangan Perolehan Nilai Sekolah (${subjectName}) Tahun ${year}:</h4>
@@ -278,15 +305,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li>**${kogPercentage}** dari rata-rata nilai "Kog" ${semesterRangeText} untuk mata pelajaran **${subjectName}**.</li>
                     <li>**${nusPercentage}** dari Nilai Ujian Sekolah untuk mata pelajaran **${subjectName}**.</li>
                 </ul>
-                <p>Rumus: (Rata-rata Nilai Kog ${semesterRangeText} ${subjectName} &times; ${parseFloat(kogPercentage)/100}) + (Nilai Ujian Sekolah ${subjectName} &times; ${parseFloat(nusPercentage)/100})</p>
+                <p>Rumus: (Rata-rata Nilai Kog ${semesterRangeText} ${subjectName} &times; ${config.kogWeight}) + (Nilai Ujian Sekolah ${subjectName} &times; ${config.nusWeight})</p>
                 <br>
-                <h4>Informasi Rata-rata Nilai Sekolah / IPK (Semua Mapel) Tahun ${year}:</h4>
-                <p>Rata-rata Nilai Sekolah / IPK (Semua Mapel) dihitung berdasarkan akumulasi:</p>
+                <h4>Informasi Nilai Sekolah (Overall) Tahun ${year}:</h4>
+                <p>Nilai Sekolah (Overall) dihitung berdasarkan akumulasi:</p>
                 <ul>
                     <li>**${kogPercentage}** dari rata-rata nilai "Kog" ${semesterRangeText} dari **semua mata pelajaran**.</li>
                     <li>**${nusPercentage}** dari rata-rata Nilai Ujian Sekolah dari **semua mata pelajaran**.</li>
                 </ul>
-                <p>Rumus: (Rata-rata Nilai Kog ${semesterRangeText} (Semua Mapel) &times; ${parseFloat(kogPercentage)/100}) + (Rata-rata Nilai Ujian Sekolah (Semua Mapel) &times; ${parseFloat(nusPercentage)/100})</p>
+                <p>Rumus: (Rata-rata Nilai Kog ${semesterRangeText} (Semua Mapel) &times; ${config.kogWeight}) + (Rata-rata Nilai Ujian Sekolah (Semua Mapel) &times; ${config.nusWeight})</p>
             </div>
         `;
         studentDetailsDiv.style.display = 'block';

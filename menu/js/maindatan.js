@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         '2025': {
             maxSemester: 5, // Rata-rata hingga semester 5
-            kogWeight: 0.60, // 60% Rata-rata Kog
-            nusWeight: 0.40  // 40% Nilai Ujian Sekolah
+            kogWeight: 0.70, // 60% Rata-rata Kog
+            nusWeight: 0.30  // 40% Nilai Ujian Sekolah
         },
         // Tambahkan konfigurasi untuk tahun 2026 dan seterusnya di sini
         // Contoh untuk tahun 2026:

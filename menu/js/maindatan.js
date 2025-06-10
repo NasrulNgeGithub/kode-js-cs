@@ -1,3 +1,4 @@
+// maindatan
 document.addEventListener('DOMContentLoaded', () => {
     const yearSelect = document.getElementById('year-select');
     const studentSelectionDiv = document.getElementById('student-selection');
@@ -6,13 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const subjectSelect = document.getElementById('subject-select');
     const studentDetailsDiv = document.getElementById('student-details');
 
-    // Ambil data siswa dari objek global yang sudah diisi oleh file data*.js
-    // Pastikan ini diakses setelah semua script data dimuat.
-    const allStudentsData = window.allStudentsDataGlobal || {}; // Tambahkan fallback jika belum terdefinisi
+    // Gabungkan data dari file terpisah
+    // Pastikan studentsData2024 dan studentsData2025 sudah terdefinisi di scope global
+    // karena file-file data dimuat sebelum main.js di index.html
+    const allStudentsData = {
+        '2024': typeof studentsData2024 !== 'undefined' ? studentsData2024 : [],
+        '2025': typeof studentsData2025 !== 'undefined' ? studentsData2025 : [],
+        // Tambahkan tahun lain di sini jika Anda membuat file data baru
+        // '2026': typeof studentsData2026 !== 'undefined' ? studentsData2026 : [],
+    };
 
     let currentSelectedStudent = null;
 
-    // --- FUNGSI PERHITUNGAN (TETAP SAMA SEPERTI SEBELUMNYA) ---
+    // --- FUNGSI PERHITUNGAN (TETAP DI SINI KARENA SUDAH ADAPTIF TERHADAP TAHUN) ---
 
     function calculateKogS1toS5BySubject(studentGrades, subjectName) {
         let totalKog = 0;
@@ -34,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'N/A';
     }
 
+    // Fungsi Nilai Sekolah per Mata Pelajaran (adaptif terhadap tahun)
     function calculateNilaiSekolahBySubject(avgKogBySubject, nusBySubject, year) {
         if (avgKogBySubject === 'N/A' || nusBySubject === 'N/A') {
             return 'N/A';
@@ -57,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return nilaiSekolah.toFixed(2);
     }
 
+    // Fungsi Rata-rata Kog Semester 1-5 OVERALL
     function calculateKogS1toS5Overall(studentGrades) {
         let totalKog = 0;
         let count = 0;
@@ -72,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return count > 0 ? (totalKog / count).toFixed(2) : 'N/A';
     }
 
+    // Fungsi Rata-rata Nilai Ujian Sekolah OVERALL
     function calculateNusOverall(nusGrades) {
         if (typeof nusGrades !== 'object' || Object.keys(nusGrades).length === 0) {
             return 'N/A';
@@ -85,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return count > 0 ? (totalNus / count).toFixed(2) : 'N/A';
     }
 
+    // Fungsi Perhitungan Nilai Sekolah OVERALL (adaptif terhadap tahun)
     function calculateNilaiSekolahOverall(avgKogOverall, nusOverall, year) {
         if (avgKogOverall === 'N/A' || nusOverall === 'N/A') {
             return 'N/A';
@@ -108,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return nilaiSekolah.toFixed(2);
     }
 
-    // --- EVENT LISTENERS (Menggunakan allStudentsData yang sudah terisi) ---
+    // --- EVENT LISTENERS (Modifikasi studentsData menjadi allStudentsData) ---
 
     yearSelect.addEventListener('change', (event) => {
         const selectedYear = event.target.value;
@@ -119,9 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         studentDetailsDiv.style.display = 'none';
         currentSelectedStudent = null;
 
-        // Pastikan allStudentsData[selectedYear] ada sebelum mengaksesnya
-        if (selectedYear && allStudentsData[selectedYear]) {
-            const students = allStudentsData[selectedYear];
+        if (selectedYear && allStudentsData[selectedYear]) { // Menggunakan allStudentsData
+            const students = allStudentsData[selectedYear]; // Menggunakan allStudentsData
             students.forEach(student => {
                 const option = document.createElement('option');
                 option.value = student.id;
@@ -142,8 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         studentDetailsDiv.style.display = 'none';
         currentSelectedStudent = null;
 
-        if (studentId && selectedYear && allStudentsData[selectedYear]) {
-            const student = allStudentsData[selectedYear].find(s => s.id === studentId);
+        if (studentId && selectedYear && allStudentsData[selectedYear]) { // Menggunakan allStudentsData
+            const student = allStudentsData[selectedYear].find(s => s.id === studentId); // Menggunakan allStudentsData
             if (student) {
                 currentSelectedStudent = student;
                 currentSelectedStudent.year = selectedYear;
@@ -188,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const avgKogOverall = calculateKogS1toS5Overall(grades);
         const nusOverall = calculateNusOverall(grades.nus);
         const nilaiSekolahOverall = calculateNilaiSekolahOverall(avgKogOverall, nusOverall, year);
+
 
         let tableRows = '';
         for (let i = 1; i <= 6; i++) {

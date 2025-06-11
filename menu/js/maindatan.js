@@ -178,17 +178,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSelectedStudent = student;
                 currentSelectedStudent.year = selectedYear;
 
-                let subjects = [];
-                // Loop hingga semester 6 untuk mencari semua mapel yang mungkin ada
-                for(let i=1; i<=6; i++) {
-                    if (student.grades[`s${i}`]) {
-                        subjects = Object.keys(student.grades[`s${i}`]);
-                        // Ambil mata pelajaran dari semester pertama yang memiliki data
-                        if (subjects.length > 0) break;
+                let subjects = new Set(); // Menggunakan Set untuk menghindari duplikasi
+                // Kumpulkan mata pelajaran dari semua semester yang ada (s1 sampai s6)
+                for(let i = 1; i <= 6; i++) {
+                    const semesterKey = `s${i}`;
+                    if (student.grades[semesterKey]) {
+                        Object.keys(student.grades[semesterKey]).forEach(subject => {
+                            subjects.add(subject); // Tambahkan semua mata pelajaran dari semester ini
+                        });
                     }
                 }
+                // Pastikan juga menambahkan mata pelajaran dari nilai ujian sekolah (NUS)
+                // Ini penting jika ada mata pelajaran di NUS yang tidak muncul di semester
+                if (student.grades.nus) {
+                    Object.keys(student.grades.nus).forEach(subject => {
+                        subjects.add(subject);
+                    });
+                }
                 
-                subjects.forEach(subject => {
+                // Konversi Set ke Array dan urutkan secara alfabetis agar tampilannya rapi
+                const sortedSubjects = Array.from(subjects).sort();
+
+                sortedSubjects.forEach(subject => {
                     const option = document.createElement('option');
                     option.value = subject;
                     option.textContent = subject;

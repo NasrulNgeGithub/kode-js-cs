@@ -3449,7 +3449,7 @@
                 "Biologi": { "kog": 90, "psik": 88 },
                 "Fisika": { "kog": 88, "psik": 88 },
                 "Kimia": { "kog": 88, "psik": 87 },
-                "Bahasa dan Sastra Inggris": { "kog": 90/00, "psik": 90 }
+                "Bahasa dan Sastra Inggris": { "kog": 90.00, "psik": 90 }
             },	
             "nus": {
                 "Pendidkan Agama dan Budi Pekerti": 86.74,

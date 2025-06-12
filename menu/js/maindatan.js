@@ -185,20 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 	
-	if (selectedYear && allStudentsData[selectedYear]) {
-            const students = allStudentsData[selectedYear];
-            students.forEach(student => {
-                const option = document.createElement('option');
-                option.value = student.id;
-                option.textContent = student.name;
-                studentSelect.appendChild(option);
-            });
-            studentSelectionDiv.style.display = 'block';
-        } else {
-            studentSelectionDiv.style.display = 'none';
-        }
-    });
-
     studentSelect.addEventListener('change', (event) => {
         const studentId = event.target.value;
         const selectedYear = yearSelect.value;

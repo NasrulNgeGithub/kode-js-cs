@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 // --- PERUBAHAN PENTING DI SINI ---
                 // Ganti dengan URL dasar hosting file JSON Anda
-                const BASE_JSON_URL = 'https://nasrulngegithub.github.io/kode-js-cs/media/datan/datan_2024.json'; // Contoh: 'https://yourusername.github.io/your-repo-name/'
-                const response = await fetch(`${BASE_JSON_URL}datan_${selectedYear}.json`);
+                const BASE_JSON_URL = 'https://nasrulngegithub.github.io/kode-js-cs/media/datan/students_2024.json'; // Contoh: 'https://yourusername.github.io/your-repo-name/'
+                const response = await fetch(`${BASE_JSON_URL}students_${selectedYear}.json`);
                 // --- AKHIR PERUBAHAN ---
 
                 if (!response.ok) {

@@ -1,1 +1,35 @@
-
+[
+    {
+        'id': '1961122001',
+        'name': 'ANASTASYA',
+        'nis': '1961122001',
+        'nisn': '0081601239',
+        'class': 'XII MIA 1',
+        'peminatan': 'Matematika Dan Ilmu Pengetahuan Alam',
+        'grades': {
+            's1': {
+                'Pendidkan Agama dan Budi Pekerti': { 'kog': 85, 'psik': 85 },
+                'Pendidikan Pancasila dan Kewarganegaraan': { 'kog': 84, 'psik': 84 },
+                'Bahasa Indonesia': { 'kog': 84, 'psik': 84 },
+                'Matematika (W)': { 'kog': 83, 'psik': 83 },
+                'Sejarah Indonesia': { 'kog': 84, 'psik': 84 },
+                'Bahasa Inggris': { 'kog': 84, 'psik': 84 },
+                'Seni Budaya': { 'kog': 84, 'psik': 84 },
+                'Pendidikan Jasmani, Olah Raga dan Kesehatan': { 'kog': 85, 'psik': 85 },
+                'Prakarya dan Kewirausahaan': { 'kog': 85, 'psik': 85 },
+                'Matematika': { 'kog': 83, 'psik': 83 },
+                'Biologi': { 'kog': 84, 'psik': 84 },
+                'Fisika': { 'kog': 84, 'psik': 84 },
+                'Kimia': { 'kog': 83, 'psik': 83 },
+                'Bahasa dan Sastra Inggris': { 'kog': 84, 'psik': 84 }
+            },
+            's2': { /* ... lanjutkan data semester lain ... */ },
+            'nus': {
+                'Pendidkan Agama dan Budi Pekerti': 90.46,
+                'Bahasa dan Sastra Inggris': 87.53
+                /* ... lanjutkan data NUS lain ... */
+            }
+        }
+    }
+    // ... (siswa lain, dipisahkan koma) ...
+]

@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // '2026': typeof studentsData2026 !== 'undefined' ? studentsData2026 : [],
     };
 
+    let currentStudentsData = [];
     let currentSelectedStudent = null;
 
     // --- FUNGSI PERHITUNGAN (MODIFIED untuk menggunakan konfigurasi) ---
@@ -149,16 +150,36 @@ document.addEventListener('DOMContentLoaded', () => {
         subjectSelectionDiv.style.display = 'none';
         studentDetailsDiv.style.display = 'none';
         currentSelectedStudent = null;
+        currentStudentsData = [];
 
-        if (selectedYear && allStudentsData[selectedYear]) {
-            const students = allStudentsData[selectedYear];
-            students.forEach(student => {
-                const option = document.createElement('option');
-                option.value = student.id;
-                option.textContent = student.name;
-                studentSelect.appendChild(option);
-            });
-            studentSelectionDiv.style.display = 'block';
+        if (selectedYear) {
+            try {
+                // --- PERUBAHAN PENTING DI SINI ---
+                // Ganti dengan URL dasar hosting file JSON Anda
+                const BASE_JSON_URL = 'https://[URL_DASAR_HOSTING_ANDA]/'; // Contoh: 'https://yourusername.github.io/your-repo-name/'
+                const response = await fetch(`${BASE_JSON_URL}students_${selectedYear}.json`);
+                // --- AKHIR PERUBAHAN ---
+
+                if (!response.ok) {
+                    throw new Error(`Tidak dapat memuat data untuk tahun ${selectedYear}. Status: ${response.status}`);
+                }
+                currentStudentsData = await response.json();
+
+                if (currentStudentsData.length > 0) {
+                    currentStudentsData.forEach(student => {
+                        const option = document.createElement('option');
+                        option.value = student.id;
+                        option.textContent = student.name;
+                        studentSelect.appendChild(option);
+                    });
+                    studentSelectionDiv.style.display = 'block';
+                } else {
+                    console.warn(`Tidak ada data siswa ditemukan untuk tahun ${selectedYear}.`);
+                }
+            } catch (error) {
+                console.error('Error loading student data:', error);
+                alert(`Gagal memuat data siswa untuk tahun ${selectedYear}. Pastikan file students_${selectedYear}.json ada di ${BASE_JSON_URL} dan formatnya benar.`);
+            }
         } else {
             studentSelectionDiv.style.display = 'none';
         }
